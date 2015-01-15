@@ -7,21 +7,33 @@
 //
 
 #import "ViewController.h"
-
-@interface ViewController ()
-
+#import "<#header#>"
+@interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self initUI];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)initUI
+{
+    self.tableView = [UITableView new];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    [self.view addSubview:_tableView];
+    
+    
+    
 }
 
 @end
