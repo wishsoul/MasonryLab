@@ -7,7 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "<#header#>"
+#import "MAsonry.h"
+NSString *const kCellID = @"cellID";
+
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @end
@@ -29,11 +31,32 @@
     self.tableView = [UITableView new];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
+    self.tableView.backgroundColor = [UIColor greenColor];
     [self.view addSubview:_tableView];
     
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
     
-    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(super.view).with.insets(UIEdgeInsetsMake(20, 0, 0, 0));
+    }];
+    [self.tableView setTableFooterView:[UIView new]];
 }
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 5;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID" forIndexPath:indexPath];
+    cell.textLabel.text = @"haha";
+    return cell;
+}
+
 
 @end
